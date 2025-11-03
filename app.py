@@ -75,7 +75,7 @@ with engine.connect() as conn:
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background-image: url("https://bimmers.parts/cdn/shop/files/DSC00277Large.jpg?v=1688454477&width=1445");
+    background-image: url("https://www.aeternus.rs/wp-content/uploads/2024/09/BMW-Marketing-Cover.webp");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
