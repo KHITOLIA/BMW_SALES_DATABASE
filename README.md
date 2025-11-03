@@ -1,5 +1,3 @@
-Perfect 🔥 — here’s the **complete and professionally written `README.md`** for your **BIMMER Sales Prediction Dashboard**, where the data (inputs + predictions) are stored in a **MySQL database** instead of Google Sheets.
-
 This version is structured for real-world deployment, with database connection, SQLAlchemy setup, and Streamlit integration.
 
 ---
@@ -222,4 +220,5 @@ AI-ML Engineer
 🌐 GitHub: [https://github.com/KHITOLIA](https://github.com/KHITOLIA)
 
 ---
+
 
