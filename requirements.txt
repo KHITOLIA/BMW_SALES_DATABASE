@@ -8,3 +8,5 @@ protobuf
 pickle-mixin
 seaborn
 kagglehub
+matplotlib
+python-pptx
