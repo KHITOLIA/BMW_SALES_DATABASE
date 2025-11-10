@@ -32,29 +32,27 @@ st.set_page_config(
     layout="centered"
 )
 
-# Read database credentials from secrets
-db = st.secrets["mysql"]
 
-# URL-encode password
+# Read database credentials
+db = st.secrets["mysql"]
 password = quote_plus(db["password"])
 
-# ✅ Correct connection string format
-connection_string = f"mysql+pymysql://{db['user']}:{password}@{db['host']}:{db['port']}/"
+# ✅ Proper SSL connection string for Aiven MySQL
+connection_url = (
+    f"mysql+pymysql://{db['user']}:{password}@{db['host']}:{db['port']}/{db['database']}?ssl=true"
+)
 
-# Create engine for root connection (no DB yet)
-engine_root = create_engine(connection_string)
+# ✅ Engine with SSL
+engine = create_engine(
+    connection_url,
+    connect_args={
+        "ssl": {
+            "ssl_mode": "REQUIRED"
+        }
+    }
+)
 
-
-# Create database if it doesn’t exist
-with engine_root.connect() as conn:
-    conn.execute(text(f"CREATE DATABASE IF NOT EXISTS {db['database']}"))
-    # st.success(f"✅ Database '{db['database']}' ready.")
-
-
-# Now connect to that specific database
-engine = create_engine(f"{connection_string}{db['database']}")
-
-
+# ✅ Create table if not exists
 with engine.connect() as conn:
     conn.execute(text("""
         CREATE TABLE IF NOT EXISTS sales_predictions (
@@ -81,7 +79,7 @@ with engine.connect() as conn:
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background-image: url("https://bimmers.parts/cdn/shop/files/DSC00277Large.jpg?v=1688454477&width=1445");
+    background-image: url("https://www.aeternus.rs/wp-content/uploads/2024/09/BMW-Marketing-Cover.webp");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
