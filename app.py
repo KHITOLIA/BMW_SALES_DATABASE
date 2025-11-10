@@ -16,6 +16,10 @@ from datetime import datetime
 import json
 from sqlalchemy import create_engine, text
 from urllib.parse import quote_plus
+import shutil
+from pptx import Presentation
+from pptx.util import Inches, Pt
+from pptx.enum.text import PP_ALIGN
 
 
 # ------------------------------------------------
@@ -489,8 +493,105 @@ def dashboard():
                     st.dataframe(df_saved)
                 else:
                     st.warning("⚠️ No saved records found yet — make a prediction first!")
+        
+        # ---------------------------------------------------------------
+        # 📊 Optional Report Generator Section (Add at end of dashboard)
+        # ---------------------------------------------------------------
 
 
+        def generate_pptx_report():
+            """Generate BMW Sales PowerPoint presentation"""
+            prs = Presentation()
+
+            # Step 1: Add title slide
+            slide_title = prs.slides.add_slide(prs.slide_layouts[0])
+            slide_title.shapes.title.text = "BMW WorldWide Sales Analysis (2010–2024)"
+            slide_title.placeholders[1].text = "Automated Data Analysis Report - Generated via Streamlit"
+
+            # Step 2: Generate charts
+            os.makedirs("charts", exist_ok=True)
+
+            plt.figure(figsize=(10, 5))
+            sns.lineplot(x='Year', y='Sales_Volume', data=df, ci=None, estimator=sum, palette='magma')
+            plt.title("Total Sales per Year")
+            plt.savefig("charts/Total Sales per Year.png")
+            plt.close()
+
+            plt.figure(figsize=(10, 5))
+            sns.lineplot(x='Year', y='Sales_Volume', hue='Region', data=df, estimator=sum, ci=None, palette='magma')
+            plt.title("Region-wise Sales Analysis")
+            plt.savefig("charts/Region-wise Sales Analysis.png")
+            plt.close()
+
+            plt.figure(figsize=(10, 5))
+            sns.lineplot(x='Year', y='Sales_Volume', hue='Model', data=df, estimator=sum, ci=None, palette='flare')
+            plt.title("Model-wise Sales Analysis")
+            plt.savefig("charts/Model-wise Sales Analysis.png")
+            plt.close()
+
+            plt.figure(figsize=(10, 5))
+            sns.lineplot(x='Year', y='Sales_Volume', hue='Fuel_Type', data=df, estimator=sum, ci=None, palette='magma')
+            plt.title("Fuel-Type-wise Sales Trend")
+            plt.savefig("charts/Fuel-Type-wise Sales Trend.png")
+            plt.close()
+
+            plt.figure(figsize=(10, 5))
+            sns.lineplot(x='Year', y='Sales_Volume', hue='Transmission', data=df, estimator=sum, ci=None, palette='magma')
+            plt.title("Transmission-wise Sales Trend")
+            plt.savefig("charts/Transmission-wise Sales Trend.png")
+            plt.close()
+
+            # Step 3: Add slides dynamically
+            charts = os.listdir("charts")
+            charts.sort()
+
+            insights = {
+                0: "1️⃣ BMW maintained consistent profitability from 2010–2017.\n2️⃣ Peak sales in 2022, slight dip after.\n3️⃣ Growth trend continues post-2023.",
+                1: "🌍 North America & Europe have highest average prices.\nAsia leads in total units — suggesting region-specific strategies.",
+                2: "🚙 X-Series SUVs dominate — strong global demand.",
+                3: "⚡ Hybrid/Electric BMW sales are rising post-2020 — focus on EVs.",
+                4: "🕹️ Manual transmissions are still popular, but automatic dominates."
+            }
+
+            for i, chart_name in enumerate(charts):
+                slide = prs.slides.add_slide(prs.slide_layouts[5])
+                slide.shapes.title.text = chart_name.replace(".png", "")
+                slide.shapes.add_picture(f"charts/{chart_name}", Inches(1), Inches(1.5), width=Inches(8))
+
+                # Adjusted text box (moves up to stay close to image)
+                text_box = slide.shapes.add_textbox(Inches(1), Inches(5.7), Inches(8), Inches(1))
+                text_frame = text_box.text_frame
+                text_frame.word_wrap = True
+
+                p = text_frame.add_paragraph()
+                p.text = "Insight:\n" + insights.get(i, "Additional insights not available.")
+                p.font.size = Pt(14)
+                p.font.bold = True
+                p.alignment = PP_ALIGN.LEFT
+
+            prs.save("BMW_Report.pptx")
+            shutil.rmtree("charts")
+
+            return "BMW_Report.pptx"
+
+        # ---------------------------------------------------------------
+        # 📥 Add Streamlit Button to Generate & Download Report
+        # ---------------------------------------------------------------
+        st.markdown("---")
+        st.subheader("📊 Generate Automated PowerPoint Report")
+
+        if st.button("🪄 Create BMW Report (PPTX)"):
+            with st.spinner("Generating PowerPoint report..."):
+                pptx_path = generate_pptx_report()
+                st.success("✅ BMW Report generated successfully!")
+
+                with open(pptx_path, "rb") as file:
+                    st.download_button(
+                        label="⬇️ Download BMW_Report.pptx",
+                        data=file,
+                        file_name="BMW_Report.pptx",
+                        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                    )
 dashboard()
 
 
