@@ -481,16 +481,16 @@ def dashboard():
                 st.success("✅ Data successfully saved to MySQL database!")
 
             
-            if st.checkbox("Show saved records"):
-                from sqlalchemy import inspect
-                inspector = inspect(engine)
-                tables = inspector.get_table_names()
+            # if st.checkbox("Show saved records"):
+            #     from sqlalchemy import inspect
+            #     inspector = inspect(engine)
+            #     tables = inspector.get_table_names()
 
-                if "sales_predictions" in tables:
-                    df_saved = pd.read_sql("SELECT * FROM sales_predictions ORDER BY Timestamp DESC", engine)
-                    st.dataframe(df_saved)
-                else:
-                    st.warning("⚠️ No saved records found yet — make a prediction first!")
+            #     if "sales_predictions" in tables:
+            #         df_saved = pd.read_sql("SELECT * FROM sales_predictions ORDER BY Timestamp DESC", engine)
+            #         st.dataframe(df_saved)
+            #     else:
+            #         st.warning("⚠️ No saved records found yet — make a prediction first!")
         
         # ---------------------------------------------------------------
         # 📊 Optional Report Generator Section (Add at end of dashboard)
