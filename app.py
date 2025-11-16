@@ -36,7 +36,7 @@ st.set_page_config(
 # set_bg_from_local("images/bmw.jpg")
 from PIL import Image
 # Load an image from a file
-image = Image.open('images/BMW-Marketing-Cover.webp')
+image = Image.open('images/BMW-Marketing-Cover(1).jpg')
 # Display the image with a caption
 st.image(image, caption='BMW', use_container_width=True)
 
