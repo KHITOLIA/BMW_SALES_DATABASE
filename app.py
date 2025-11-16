@@ -86,38 +86,38 @@ with engine.connect() as conn:
 # ------------------------------------------
 # Custom Background and Styling
 # ------------------------------------------
-# page_bg_img = """
-# <style>
-# [data-testid="stAppViewContainer"] {
-#     background-image: url("https://www.aeternus.rs/wp-content/uploads/2024/09/BMW-Marketing-Cover.webp");
-#     background-size: cover;
-#     background-repeat: no-repeat;
-#     background-attachment: fixed;
-# }
-# [data-testid="stSidebar"] {
-#     background-color: black;
-# }
-# .stButton>button {
-#     background-color: #00adb5;
-#     color: white;
-#     border-radius: 10px;
-#     height: 2.5em;
-#     width: 100%;
-#     font-weight: bold;
-# }
-# .stTextInput>div>div>input {
-#     border-radius: 10px;
-# }
-# h1, h2, h3 {
-#     color: white;
-# }
-# div.block-container {
-#     background-color: rgba(0,0,0,0.6);
-#     padding: 2em;
-#     border-radius: 15px;
-# }
-# </style>
-# """
+page_bg_img = """
+<style>
+[data-testid="stAppViewContainer"] {
+    background-image: url("https://www.aeternus.rs/wp-content/uploads/2024/09/BMW-Marketing-Cover.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+[data-testid="stSidebar"] {
+    background-color: black;
+}
+.stButton>button {
+    background-color: #00adb5;
+    color: white;
+    border-radius: 10px;
+    height: 2.5em;
+    width: 100%;
+    font-weight: bold;
+}
+.stTextInput>div>div>input {
+    border-radius: 10px;
+}
+h1, h2, h3 {
+    color: white;
+}
+div.block-container {
+    background-color: rgba(0,0,0,0.6);
+    padding: 2em;
+    border-radius: 15px;
+}
+</style>
+"""
 # page_bg_img = """
 # <style>
 # /* Create a blurred background layer */
