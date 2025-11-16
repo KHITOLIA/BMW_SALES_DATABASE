@@ -32,6 +32,16 @@ st.set_page_config(
     layout="centered"
 )
 
+# 🌆 Add background image
+#set_bg_from_local("images/bmw.jpg")
+from PIL import Image
+# Load an image from a file
+image = Image.open('images/BMW-Marketing-Cover.webp')
+# Display the image with a caption
+st.image(image, caption='BMW', use_container_width=True)
+
+st.title("🚗 BMW Worldwide Car Sales (2010–2024) — EDA Dashboard")
+st.markdown("---")
 
 # Read database credentials
 db = st.secrets["mysql"]
@@ -76,39 +86,39 @@ with engine.connect() as conn:
 # ------------------------------------------
 # Custom Background and Styling
 # ------------------------------------------
-page_bg_img = """
-<style>
-[data-testid="stAppViewContainer"] {
-    background-image: url("https://www.aeternus.rs/wp-content/uploads/2024/09/BMW-Marketing-Cover.webp");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-[data-testid="stSidebar"] {
-    background-color: black;
-}
-.stButton>button {
-    background-color: #00adb5;
-    color: white;
-    border-radius: 10px;
-    height: 2.5em;
-    width: 100%;
-    font-weight: bold;
-}
-.stTextInput>div>div>input {
-    border-radius: 10px;
-}
-h1, h2, h3 {
-    color: white;
-}
-div.block-container {
-    background-color: rgba(0,0,0,0.6);
-    padding: 2em;
-    border-radius: 15px;
-}
-</style>
-"""
-st.markdown(page_bg_img, unsafe_allow_html=True)
+# page_bg_img = """
+# <style>
+# [data-testid="stAppViewContainer"] {
+#     background-image: url("https://www.aeternus.rs/wp-content/uploads/2024/09/BMW-Marketing-Cover.webp");
+#     background-size: cover;
+#     background-repeat: no-repeat;
+#     background-attachment: fixed;
+# }
+# [data-testid="stSidebar"] {
+#     background-color: black;
+# }
+# .stButton>button {
+#     background-color: #00adb5;
+#     color: white;
+#     border-radius: 10px;
+#     height: 2.5em;
+#     width: 100%;
+#     font-weight: bold;
+# }
+# .stTextInput>div>div>input {
+#     border-radius: 10px;
+# }
+# h1, h2, h3 {
+#     color: white;
+# }
+# div.block-container {
+#     background-color: rgba(0,0,0,0.6);
+#     padding: 2em;
+#     border-radius: 15px;
+# }
+# </style>
+# """
+# st.markdown(page_bg_img, unsafe_allow_html=True)
 # Download latest version
 path = kagglehub.dataset_download("ahmadrazakashif/bmw-worldwide-sales-records-20102024")
 df = pd.read_csv(path + "/BMW sales data (2010-2024) (1).csv")
