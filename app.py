@@ -76,17 +76,63 @@ with engine.connect() as conn:
 # ------------------------------------------
 # Custom Background and Styling
 # ------------------------------------------
+# page_bg_img = """
+# <style>
+# [data-testid="stAppViewContainer"] {
+#     background-image: url("https://www.aeternus.rs/wp-content/uploads/2024/09/BMW-Marketing-Cover.webp");
+#     background-size: cover;
+#     background-repeat: no-repeat;
+#     background-attachment: fixed;
+# }
+# [data-testid="stSidebar"] {
+#     background-color: black;
+# }
+# .stButton>button {
+#     background-color: #00adb5;
+#     color: white;
+#     border-radius: 10px;
+#     height: 2.5em;
+#     width: 100%;
+#     font-weight: bold;
+# }
+# .stTextInput>div>div>input {
+#     border-radius: 10px;
+# }
+# h1, h2, h3 {
+#     color: white;
+# }
+# div.block-container {
+#     background-color: rgba(0,0,0,0.6);
+#     padding: 2em;
+#     border-radius: 15px;
+# }
+# </style>
+# """
+
 page_bg_img = """
 <style>
-[data-testid="stAppViewContainer"] {
+/* Create a blurred background layer */
+[data-testid="stAppViewContainer"]::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-image: url("https://www.aeternus.rs/wp-content/uploads/2024/09/BMW-Marketing-Cover.webp");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    filter: blur(10px);       /* <<< Increase blur here */
+    z-index: -1;              /* Keep behind everything */
 }
+
+/* Sidebar */
 [data-testid="stSidebar"] {
     background-color: black;
 }
+
+/* Buttons */
 .stButton>button {
     background-color: #00adb5;
     color: white;
@@ -95,12 +141,18 @@ page_bg_img = """
     width: 100%;
     font-weight: bold;
 }
+
+/* Text inputs */
 .stTextInput>div>div>input {
     border-radius: 10px;
 }
+
+/* Headings */
 h1, h2, h3 {
     color: white;
 }
+
+/* Main container overlay */
 div.block-container {
     background-color: rgba(0,0,0,0.6);
     padding: 2em;
@@ -108,6 +160,7 @@ div.block-container {
 }
 </style>
 """
+
 st.markdown(page_bg_img, unsafe_allow_html=True)
 # Download latest version
 path = kagglehub.dataset_download("ahmadrazakashif/bmw-worldwide-sales-records-20102024")
