@@ -33,15 +33,15 @@ st.set_page_config(
 )
 
 # 🌆 Add background image
-#set_bg_from_local("images/bmw.jpg")
-# from PIL import Image
-# # Load an image from a file
-# image = Image.open('images/BMW-Marketing-Cover.webp')
-# # Display the image with a caption
-# st.image(image, caption='BMW', use_container_width=True)
+# set_bg_from_local("images/bmw.jpg")
+from PIL import Image
+# Load an image from a file
+image = Image.open('images/BMW-Marketing-Cover.webp')
+# Display the image with a caption
+st.image(image, caption='BMW', use_container_width=True)
 
-# st.title("🚗 BMW Worldwide Car Sales (2010–2024) — EDA Dashboard")
-# st.markdown("---")
+st.title("🚗 BMW Worldwide Car Sales (2010–2024) — EDA Dashboard")
+st.markdown("---")
 
 # Read database credentials
 db = st.secrets["mysql"]
