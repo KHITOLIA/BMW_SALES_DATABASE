@@ -123,7 +123,7 @@ page_bg_img = """
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    filter: blur(10px);       /* <<< Increase blur here */
+    filter: blur(5px);       /* <<< Increase blur here */
     z-index: -1;              /* Keep behind everything */
 }
 
