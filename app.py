@@ -559,223 +559,223 @@ def dashboard():
         # ---------------------------------------------------------------
 
 
-            import pandas as pd
-            import numpy as np
-            import seaborn as sns
-            import matplotlib.pyplot as plt
-            from pptx import Presentation
-            from pptx.util import Inches, Pt
-            import kagglehub
-            import os
-            from pptx.enum.text import PP_ALIGN
-            import shutil
+            # import pandas as pd
+            # import numpy as np
+            # import seaborn as sns
+            # import matplotlib.pyplot as plt
+            # from pptx import Presentation
+            # from pptx.util import Inches, Pt
+            # import kagglehub
+            # import os
+            # from pptx.enum.text import PP_ALIGN
+            # import shutil
             
-            prs = Presentation("BMW.pptx")
+            # prs = Presentation("BMW.pptx")
             
             
-            # import dataset
-            path = kagglehub.dataset_download("ahmadrazakashif/bmw-worldwide-sales-records-20102024")
+            # # import dataset
+            # path = kagglehub.dataset_download("ahmadrazakashif/bmw-worldwide-sales-records-20102024")
             
-            csv_path = path + "/BMW sales data (2010-2024) (1).csv"
-            df = pd.read_csv(csv_path)
+            # csv_path = path + "/BMW sales data (2010-2024) (1).csv"
+            # df = pd.read_csv(csv_path)
             
-            print(df.head())
+            # print(df.head())
             
-            # Step 2 : 
-            df.columns = df.columns.str.strip() # remove spaces
-            df.dropna(how = "all", inplace = True)
+            # # Step 2 : 
+            # df.columns = df.columns.str.strip() # remove spaces
+            # df.dropna(how = "all", inplace = True)
             
-            # Step 3 : Generate and save visualizations
-            os.makedirs("charts", exist_ok=True)
+            # # Step 3 : Generate and save visualizations
+            # os.makedirs("charts", exist_ok=True)
             
-            numerical_features = [col for col in df.columns if df[col].dtypes != object]
+            # numerical_features = [col for col in df.columns if df[col].dtypes != object]
             
-            # # Slide 1 : Title
-            # slide_title = prs.slides.add_slide(prs.slide_layouts[0])
-            # slide_title.shapes.title.text = "BMW WorldWide Sales Analysis (2010–2024)"
-            # slide_title.placeholders[1].text = "Automated Data Analysis Report - Generated via Python"
+            # # # Slide 1 : Title
+            # # slide_title = prs.slides.add_slide(prs.slide_layouts[0])
+            # # slide_title.shapes.title.text = "BMW WorldWide Sales Analysis (2010–2024)"
+            # # slide_title.placeholders[1].text = "Automated Data Analysis Report - Generated via Python"
             
-            def graph_analysis():
-                plt.figure(figsize=(10, 5))
-                sns.lineplot(x='Year', y='Sales_Volume', data=df, ci=None, estimator=sum, palette='magma')
-                plt.title("Total Sales per Year")
-                plt.savefig("charts/Total Sales per Year.png")
-                plt.close()
+            # def graph_analysis():
+            #     plt.figure(figsize=(10, 5))
+            #     sns.lineplot(x='Year', y='Sales_Volume', data=df, ci=None, estimator=sum, palette='magma')
+            #     plt.title("Total Sales per Year")
+            #     plt.savefig("charts/Total Sales per Year.png")
+            #     plt.close()
             
-                plt.figure(figsize=(10, 5))
-                sns.lineplot(x='Year', y='Sales_Volume', hue='Region', data=df, estimator=sum, palette='magma', ci=None)
-                plt.title("Region wise analysis of Sales")
-                plt.savefig("charts/Region wise analysis of Sales.png")
-                plt.close()
+            #     plt.figure(figsize=(10, 5))
+            #     sns.lineplot(x='Year', y='Sales_Volume', hue='Region', data=df, estimator=sum, palette='magma', ci=None)
+            #     plt.title("Region wise analysis of Sales")
+            #     plt.savefig("charts/Region wise analysis of Sales.png")
+            #     plt.close()
             
-                plt.figure(figsize=(10, 5))
-                sns.lineplot(x='Year', y='Sales_Volume', hue='Model', data=df, estimator=sum, palette='magma', ci=None)
-                plt.title("Model wise analysis of Sales")
-                plt.savefig("charts/Model wise analysis of Sales.png")
-                plt.close()
+            #     plt.figure(figsize=(10, 5))
+            #     sns.lineplot(x='Year', y='Sales_Volume', hue='Model', data=df, estimator=sum, palette='magma', ci=None)
+            #     plt.title("Model wise analysis of Sales")
+            #     plt.savefig("charts/Model wise analysis of Sales.png")
+            #     plt.close()
             
-                plt.figure(figsize=(10, 5))
-                sns.lineplot(x='Year', y='Sales_Volume', hue='Fuel_Type', data=df, estimator=sum, palette='magma', ci=None)
-                plt.title("Sales Trend Analysis for different Fuel_types")
-                plt.savefig("charts/Sales Trend Analysis for different Fuel_types.png")
-                plt.close()
+            #     plt.figure(figsize=(10, 5))
+            #     sns.lineplot(x='Year', y='Sales_Volume', hue='Fuel_Type', data=df, estimator=sum, palette='magma', ci=None)
+            #     plt.title("Sales Trend Analysis for different Fuel_types")
+            #     plt.savefig("charts/Sales Trend Analysis for different Fuel_types.png")
+            #     plt.close()
             
-                plt.figure(figsize=(10, 5))
-                sns.lineplot(x='Year', y='Sales_Volume', hue='Transmission', data=df, estimator=sum, palette='magma', ci=None)
-                plt.title("Sales Trend Analysis for different Transmission")
-                plt.savefig("charts/Sales Trend Analysis for different Transmission.png")
-                plt.close()
+            #     plt.figure(figsize=(10, 5))
+            #     sns.lineplot(x='Year', y='Sales_Volume', hue='Transmission', data=df, estimator=sum, palette='magma', ci=None)
+            #     plt.title("Sales Trend Analysis for different Transmission")
+            #     plt.savefig("charts/Sales Trend Analysis for different Transmission.png")
+            #     plt.close()
             
             
                 
-            graph_analysis()
+            # graph_analysis()
             
-            insights  = {'0' : '''1. Company is being almost consistent making profit from 2010 to 2017.
-                                \n2. After 2018 it leads to showing some alternate fluctuations per year till 2024 by increasing lately.
-                                \n3. Peak Sales goes in 2022 but slightly decrease in next two years.''',
-                        '1' : '''Manual transmissions dominate across all regions since — reduce Automatic inventory.''',
-                        '2' : '''Sales of hybrid/electric BMWs increasing post-2020, suggesting EV transition is key for growth.''',
-                        '3' : '''1. North America & Europe have highest average prices. \n2.Asia has highest unit sales → suggests luxury vs volume strategy.''',
-                        '4' : '''X-Series (SUVs) showing strong global demand → allocate marketing and production resources accordingly.'''}
+            # insights  = {'0' : '''1. Company is being almost consistent making profit from 2010 to 2017.
+            #                     \n2. After 2018 it leads to showing some alternate fluctuations per year till 2024 by increasing lately.
+            #                     \n3. Peak Sales goes in 2022 but slightly decrease in next two years.''',
+            #             '1' : '''Manual transmissions dominate across all regions since — reduce Automatic inventory.''',
+            #             '2' : '''Sales of hybrid/electric BMWs increasing post-2020, suggesting EV transition is key for growth.''',
+            #             '3' : '''1. North America & Europe have highest average prices. \n2.Asia has highest unit sales → suggests luxury vs volume strategy.''',
+            #             '4' : '''X-Series (SUVs) showing strong global demand → allocate marketing and production resources accordingly.'''}
             
-            charts = sorted([f.replace(".png", "") for f in os.listdir("charts/")])[::-1]
-            for i in range(len(charts)):
-                slide = prs.slides.add_slide(prs.slide_layouts[5])
-                slide.shapes.title.text = charts[i]
+            # charts = sorted([f.replace(".png", "") for f in os.listdir("charts/")])[::-1]
+            # for i in range(len(charts)):
+            #     slide = prs.slides.add_slide(prs.slide_layouts[5])
+            #     slide.shapes.title.text = charts[i]
             
-                slide.shapes.add_picture(f"charts/{charts[i]}.png", Inches(1), Inches(1.5), width=Inches(7.5))
+            #     slide.shapes.add_picture(f"charts/{charts[i]}.png", Inches(1), Inches(1.5), width=Inches(7.5))
             
-                text_box = slide.shapes.add_textbox(Inches(1), Inches(5.0), Inches(8), Inches(1))
-                text_frame = text_box.text_frame
-                p = text_frame.add_paragraph()
-                p.text = "Insight:\n" + insights[str(i)]
-                p.font.size = Pt(15)
-                p.font.bold = True
-                p.alignment = PP_ALIGN.LEFT
+            #     text_box = slide.shapes.add_textbox(Inches(1), Inches(5.0), Inches(8), Inches(1))
+            #     text_frame = text_box.text_frame
+            #     p = text_frame.add_paragraph()
+            #     p.text = "Insight:\n" + insights[str(i)]
+            #     p.font.size = Pt(15)
+            #     p.font.bold = True
+            #     p.alignment = PP_ALIGN.LEFT
             
-            # Model Metrics : 
-            slide = prs.slides.add_slide(prs.slide_layouts[5])
-            slide.shapes.title.text = f"{"Model Metrics"}"
-            text_box = slide.shapes.add_textbox(Inches(1), Inches(2.5), Inches(3.5), Inches(1))
-            text_frame = text_box.text_frame
-            text_frame.word_wrap = True
-            p = text_frame.add_paragraph()
-            p.text = '''LINEAR_REGRESSION MODEL PERFORMANCE : 
-            \nR² Score: 0.635
-            \nMAE: 1427.04
-            \nRMSE: 1726.40'''
-            p.font.size = Pt(15)
-            p.font.bold = True
-            p.alignment = PP_ALIGN.LEFT
-            
-            
-            # Deployment : 
-            # Deployment Slide
-            slide = prs.slides.add_slide(prs.slide_layouts[5])
-            slide.shapes.title.text = "Deployment"
-            
-            # Text Box – positioned properly using Inches()
-            text_box = slide.shapes.add_textbox(
-                left=Inches(0.8),
-                top=Inches(1.8),
-                width=Inches(11),
-                height=Inches(4.5)
-            )
-            
-            text_frame = text_box.text_frame
-            text_frame.word_wrap = True
-            
-            p = text_frame.add_paragraph()
-            p.text = (
-                "DEPLOYMENT OVERVIEW:\n"
-                "• User Interface built using Streamlit\n"
-                "  - Simple, interactive UI\n"
-                "  - Supports file upload and dashboard generation\n\n"
-                "• Backend Processing\n"
-                "  - Automated data cleaning, preprocessing, and visualization\n"
-                "  - Generates charts and insights dynamically\n\n"
-                "• PPT Automation\n"
-                "  - python-pptx used for auto slide creation\n"
-                "  - All charts + insights added programmatically\n\n"
-                "• Final Output\n"
-                "  - End-to-end workflow (Data → Analysis → PPT)"
-            )
-            
-            p.font.size = Pt(18)
-            p.font.bold = False
-            p.alignment = PP_ALIGN.LEFT
+            # # Model Metrics : 
+            # slide = prs.slides.add_slide(prs.slide_layouts[5])
+            # slide.shapes.title.text = f"{"Model Metrics"}"
+            # text_box = slide.shapes.add_textbox(Inches(1), Inches(2.5), Inches(3.5), Inches(1))
+            # text_frame = text_box.text_frame
+            # text_frame.word_wrap = True
+            # p = text_frame.add_paragraph()
+            # p.text = '''LINEAR_REGRESSION MODEL PERFORMANCE : 
+            # \nR² Score: 0.635
+            # \nMAE: 1427.04
+            # \nRMSE: 1726.40'''
+            # p.font.size = Pt(15)
+            # p.font.bold = True
+            # p.alignment = PP_ALIGN.LEFT
             
             
+            # # Deployment : 
+            # # Deployment Slide
+            # slide = prs.slides.add_slide(prs.slide_layouts[5])
+            # slide.shapes.title.text = "Deployment"
             
-            # DataBase : 
-            # Database Slide
-            slide = prs.slides.add_slide(prs.slide_layouts[5])
-            slide.shapes.title.text = "Database"
+            # # Text Box – positioned properly using Inches()
+            # text_box = slide.shapes.add_textbox(
+            #     left=Inches(0.8),
+            #     top=Inches(1.8),
+            #     width=Inches(11),
+            #     height=Inches(4.5)
+            # )
             
-            text_box = slide.shapes.add_textbox(
-                left=Inches(0.8),
-                top=Inches(1.8),
-                width=Inches(11),
-                height=Inches(4.5)
-            )
+            # text_frame = text_box.text_frame
+            # text_frame.word_wrap = True
             
-            text_frame = text_box.text_frame
-            text_frame.word_wrap = True
+            # p = text_frame.add_paragraph()
+            # p.text = (
+            #     "DEPLOYMENT OVERVIEW:\n"
+            #     "• User Interface built using Streamlit\n"
+            #     "  - Simple, interactive UI\n"
+            #     "  - Supports file upload and dashboard generation\n\n"
+            #     "• Backend Processing\n"
+            #     "  - Automated data cleaning, preprocessing, and visualization\n"
+            #     "  - Generates charts and insights dynamically\n\n"
+            #     "• PPT Automation\n"
+            #     "  - python-pptx used for auto slide creation\n"
+            #     "  - All charts + insights added programmatically\n\n"
+            #     "• Final Output\n"
+            #     "  - End-to-end workflow (Data → Analysis → PPT)"
+            # )
             
-            p = text_frame.add_paragraph()
-            p.text = (
-                "DATABASE OVERVIEW:\n"
-                "• Primary Database\n"
-                "  - Aiven Cloud MySQL Service (secure & scalable)\n"
-                "• Local Backup\n"
-                "  - Connected to MySQL Workbench\n"
-                "  - Provides redundancy & offline availability\n\n"
-                "• Usage in Project\n"
-                "  - Stores processed sales data & historical records\n"
-                "  - Enables fast analytics retrieval\n"
-                "  - Cloud + local sync ensures future reliability"
-            )
-            
-            p.font.size = Pt(18)
-            p.font.bold = False
-            p.alignment = PP_ALIGN.LEFT
+            # p.font.size = Pt(18)
+            # p.font.bold = False
+            # p.alignment = PP_ALIGN.LEFT
             
             
             
-            # Conclusion : 
-            # Conclusion Slide
-            slide = prs.slides.add_slide(prs.slide_layouts[5])
-            slide.shapes.title.text = "Conclusion"
+            # # DataBase : 
+            # # Database Slide
+            # slide = prs.slides.add_slide(prs.slide_layouts[5])
+            # slide.shapes.title.text = "Database"
             
-            text_box = slide.shapes.add_textbox(
-                left=Inches(0.8),
-                top=Inches(1.8),
-                width=Inches(11),
-                height=Inches(4.8)
-            )
+            # text_box = slide.shapes.add_textbox(
+            #     left=Inches(0.8),
+            #     top=Inches(1.8),
+            #     width=Inches(11),
+            #     height=Inches(4.5)
+            # )
             
-            text_frame = text_box.text_frame
-            text_frame.word_wrap = True
+            # text_frame = text_box.text_frame
+            # text_frame.word_wrap = True
             
-            p = text_frame.add_paragraph()
-            p.text = (
-                "CONCLUSION & RECOMMENDATIONS:\n"
-                "1. Expand Electric & Hybrid Lineup — demand rising YOY.\n"
-                "2. Region-Specific Strategy — luxury focus in NA; volume focus in Asia.\n"
-                "3. Boost SUV (X-Series) Production — strongest performance segment.\n"
-                "4. Data-Driven Pricing — optimize price per region.\n"
-                "5. Personalized Marketing — highlight popular colors/features by region."
-            )
+            # p = text_frame.add_paragraph()
+            # p.text = (
+            #     "DATABASE OVERVIEW:\n"
+            #     "• Primary Database\n"
+            #     "  - Aiven Cloud MySQL Service (secure & scalable)\n"
+            #     "• Local Backup\n"
+            #     "  - Connected to MySQL Workbench\n"
+            #     "  - Provides redundancy & offline availability\n\n"
+            #     "• Usage in Project\n"
+            #     "  - Stores processed sales data & historical records\n"
+            #     "  - Enables fast analytics retrieval\n"
+            #     "  - Cloud + local sync ensures future reliability"
+            # )
             
-            p.font.size = Pt(18)
-            p.font.bold = False
-            p.alignment = PP_ALIGN.LEFT
+            # p.font.size = Pt(18)
+            # p.font.bold = False
+            # p.alignment = PP_ALIGN.LEFT
             
             
             
-            prs.save("BMW_2.pptx")
-            shutil.rmtree("charts/")
-            print(f"Directory and its content removed successfully.")
+            # # Conclusion : 
+            # # Conclusion Slide
+            # slide = prs.slides.add_slide(prs.slide_layouts[5])
+            # slide.shapes.title.text = "Conclusion"
+            
+            # text_box = slide.shapes.add_textbox(
+            #     left=Inches(0.8),
+            #     top=Inches(1.8),
+            #     width=Inches(11),
+            #     height=Inches(4.8)
+            # )
+            
+            # text_frame = text_box.text_frame
+            # text_frame.word_wrap = True
+            
+            # p = text_frame.add_paragraph()
+            # p.text = (
+            #     "CONCLUSION & RECOMMENDATIONS:\n"
+            #     "1. Expand Electric & Hybrid Lineup — demand rising YOY.\n"
+            #     "2. Region-Specific Strategy — luxury focus in NA; volume focus in Asia.\n"
+            #     "3. Boost SUV (X-Series) Production — strongest performance segment.\n"
+            #     "4. Data-Driven Pricing — optimize price per region.\n"
+            #     "5. Personalized Marketing — highlight popular colors/features by region."
+            # )
+            
+            # p.font.size = Pt(18)
+            # p.font.bold = False
+            # p.alignment = PP_ALIGN.LEFT
+            
+            
+            
+            # prs.save("BMW_2.pptx")
+            # shutil.rmtree("charts/")
+            # print(f"Directory and its content removed successfully.")
 dashboard()
 
 
